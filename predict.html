@@ -319,7 +319,10 @@ function run(){
   const mode=document.getElementById('cutoffMode').value;
   let html='', nPos=0, nShown=0;
 
+  // 결과에서 제외할 질환(예측은 되지만 화면에 표시하지 않음)
+  const HIDE_DISEASE=new Set(["obesity"]);
   for(const [key,m] of Object.entries(MODELS.diseases)){
+    if(HIDE_DISEASE.has(key)) continue;
     if(!sexOk(m.sex,sex)){
       if(mode!=='filter')
         html+=`<div class="disease"><div class="top"><span class="name">${m.label}</span>
